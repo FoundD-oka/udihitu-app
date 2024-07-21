@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'UDHituAStd';
+  src: url('../public/fonts/UDHituAStd-E12.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.character-display {
+  font-size: 150px;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.udihitu-font {
+  font-family: 'UDHituAStd', sans-serif;
+}
