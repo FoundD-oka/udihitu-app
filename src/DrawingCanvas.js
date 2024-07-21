@@ -56,12 +56,12 @@ const DrawingCanvas = React.forwardRef(({ stage, character, components }, ref) =
   }, [stage, character, components, fontLoaded, clearAndRedraw]);
 
   const startDrawing = (e) => {
-    e.preventDefault(); // デフォルトの動作を防ぐ
+    e.preventDefault();
     setIsDrawing(true);
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = (e.clientX || e.touches[0].clientX) - rect.left;
+    const y = (e.clientY || e.touches[0].clientY) - rect.top;
     const context = canvas.getContext('2d');
     context.beginPath();
     context.moveTo(x, y);
@@ -73,11 +73,11 @@ const DrawingCanvas = React.forwardRef(({ stage, character, components }, ref) =
 
   const draw = (e) => {
     if (!isDrawing) return;
-    e.preventDefault(); // デフォルトの動作を防ぐ
+    e.preventDefault();
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = (e.clientX || e.touches[0].clientX) - rect.left;
+    const y = (e.clientY || e.touches[0].clientY) - rect.top;
     const context = canvas.getContext('2d');
     context.lineTo(x, y);
     context.stroke();
@@ -87,31 +87,13 @@ const DrawingCanvas = React.forwardRef(({ stage, character, components }, ref) =
     setIsDrawing(false);
   };
 
-  const handleTouchStart = (e) => {
-    const touch = e.touches[0];
-    startDrawing({
-      preventDefault: () => {},
-      clientX: touch.clientX,
-      clientY: touch.clientY
-    });
-  };
-
-  const handleTouchMove = (e) => {
-    const touch = e.touches[0];
-    draw({
-      preventDefault: () => {},
-      clientX: touch.clientX,
-      clientY: touch.clientY
-    });
-  };
-
   useImperativeHandle(ref, () => ({
     clearAndRedraw,
     getCanvasImage: () => canvasRef.current
   }));
 
   return (
-    <div className="drawing-canvas">
+    <div className="drawing-canvas" style={{ touchAction: 'none' }}>
       <canvas
         ref={canvasRef}
         width={300}
@@ -120,10 +102,9 @@ const DrawingCanvas = React.forwardRef(({ stage, character, components }, ref) =
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseOut={stopDrawing}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
+        onTouchStart={startDrawing}
+        onTouchMove={draw}
         onTouchEnd={stopDrawing}
-        style={{ touchAction: 'none' }} // タッチ操作によるスクロールを無効化
       />
     </div>
   );

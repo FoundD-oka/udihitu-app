@@ -21,3 +21,13 @@ button {
   padding: 5px 10px;
   font-size: 14px;
 }
+.drawing-canvas {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.drawing-canvas canvas {
+  width: 100%;
+  height: auto;
+}
