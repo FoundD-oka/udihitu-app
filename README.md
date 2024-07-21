@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# UDHituAStd 漢字学習アプリ
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+このプロジェクトは、React を使用して作成された漢字学習アプリケーションです。UDHituAStd フォントを使用して、漢字の書き方を学ぶことができます。
+**現状は1年生の漢字のみ対応。**
 
-## Available Scripts
+## 機能
 
-In the project directory, you can run:
+- ランダムな漢字の表示
+- 漢字の構成要素を段階的に表示
+- キャンバス上での漢字の描画
+- AIによる描画の評価
+- ヒント機能
 
-### `npm start`
+## セットアップ
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. リポジトリをクローンします:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+git clone [リポジトリURL]
+cd udihitu-app
+```
 
-### `npm test`
+2. 依存関係をインストールします:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install
+```
 
-### `npm run build`
+3. アプリケーションを起動します:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+アプリケーションは http://localhost:3000 で実行されます。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 使用方法
 
-### `npm run eject`
+1. アプリを起動すると、ランダムな漢字が表示されます。
+2. 「ヒントを表示」ボタンをクリックすると、正解の漢字が表示されます。
+3. キャンバス上で漢字を描いてみましょう。
+4. 「次へ」ボタンをクリックすると、漢字の構成要素が段階的に表示されます。
+5. 「クリア」ボタンで描画をリセットできます。
+6. 「次の文字」ボタンで新しい漢字に進みます。
+7. 「判定」ボタンをクリックすると、AIが描画を評価します。
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 技術スタック
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- React
+- CSS
+- Canvas API
+- Anthropic API (AI評価用)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## ファイル構造
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+  ├── App.js            # メインのアプリケーションコンポーネント
+  ├── DrawingCanvas.js  # 描画用キャンバスコンポーネント
+  ├── CharacterDisplay.js # 漢字表示コンポーネント
+  ├── ControlButtons.js # コントロールボタンコンポーネント
+  ├── characterData.js  # 漢字データ処理用ユーティリティ
+  └── styles/           # CSSファイル
+public/
+  ├── fonts/            # UDHituAStdフォント
+  ├── 1nen_kanji.txt    # 1年生の漢字リスト
+  └── Mac_19_Hitu_Dictionary.txt # 漢字辞書データ
+```
 
-## Learn More
+## 注意事項
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- このアプリケーションは教育目的で作成されており、実際の漢字能力試験などの公式評価とは異なる場合があります。
+- AIによる評価は参考程度にとどめ、正確な漢字の書き方は公式の学習資料を参照してください。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## ライセンス
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+このプロジェクトは [ライセンス名] のもとで公開されています。詳細は LICENSE ファイルを参照してください。
