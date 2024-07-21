@@ -2,12 +2,19 @@
     "version": 2,
     "builds": [
       {
-        "src": "/**",
+        "src": "/public/**",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "out"
+        }
+      },
+      {
+        "src": "/src/**",
         "use": "@vercel/static-build",
         "config": {
           "distDir": "out"
         }
       }
     ],
-    "installCommand": "npm install" 
+    "installCommand": "npm install"
   }
