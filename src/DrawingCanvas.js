@@ -56,27 +56,53 @@ const DrawingCanvas = React.forwardRef(({ stage, character, components }, ref) =
   }, [stage, character, components, fontLoaded, clearAndRedraw]);
 
   const startDrawing = (e) => {
-    const { offsetX, offsetY } = e.nativeEvent;
+    e.preventDefault(); // デフォルトの動作を防ぐ
     setIsDrawing(true);
-    const context = canvasRef.current.getContext('2d');
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const context = canvas.getContext('2d');
     context.beginPath();
-    context.moveTo(offsetX, offsetY);
+    context.moveTo(x, y);
     context.strokeStyle = '#000000';
-    context.lineWidth = 8; // 線の太さを8ピクセルに設定
-    context.lineCap = 'round'; // 線の端を丸くする
-    context.lineJoin = 'round'; // 線の接合部を丸くする
+    context.lineWidth = 8;
+    context.lineCap = 'round';
+    context.lineJoin = 'round';
   };
 
   const draw = (e) => {
     if (!isDrawing) return;
-    const { offsetX, offsetY } = e.nativeEvent;
-    const context = canvasRef.current.getContext('2d');
-    context.lineTo(offsetX, offsetY);
+    e.preventDefault(); // デフォルトの動作を防ぐ
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const context = canvas.getContext('2d');
+    context.lineTo(x, y);
     context.stroke();
   };
 
   const stopDrawing = () => {
     setIsDrawing(false);
+  };
+
+  const handleTouchStart = (e) => {
+    const touch = e.touches[0];
+    startDrawing({
+      preventDefault: () => {},
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
+  };
+
+  const handleTouchMove = (e) => {
+    const touch = e.touches[0];
+    draw({
+      preventDefault: () => {},
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
   };
 
   useImperativeHandle(ref, () => ({
@@ -94,25 +120,10 @@ const DrawingCanvas = React.forwardRef(({ stage, character, components }, ref) =
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseOut={stopDrawing}
-        onTouchStart={(e) => {
-          e.preventDefault();
-          const touch = e.touches[0];
-          const mouseEvent = new MouseEvent("mousedown", {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-          });
-          canvasRef.current.dispatchEvent(mouseEvent);
-        }}
-        onTouchMove={(e) => {
-          e.preventDefault();
-          const touch = e.touches[0];
-          const mouseEvent = new MouseEvent("mousemove", {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-          });
-          canvasRef.current.dispatchEvent(mouseEvent);
-        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={stopDrawing}
+        style={{ touchAction: 'none' }} // タッチ操作によるスクロールを無効化
       />
     </div>
   );
