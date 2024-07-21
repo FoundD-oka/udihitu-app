@@ -17,7 +17,7 @@ const DrawingCanvas = React.forwardRef(({ stage, character, components }, ref) =
     context.textBaseline = 'middle';
 
     if (stage === 0) {
-      // 全ての構成要素をグレーで描画
+      // 全ての構成要素をグレーで描画 
       context.fillStyle = '#E0E0E0';
       components.forEach((comp) => {
         context.fillText(comp, 150, 150);
